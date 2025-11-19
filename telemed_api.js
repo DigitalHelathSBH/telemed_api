@@ -201,4 +201,11 @@ async function main() {
   }
 }
 
+const cron = require('node-cron');
+
+cron.schedule('0 1 * * *', () => {
+    console.log("Scheduling telemed API at 01:00");
+    main();   // เรียก function main() อีกครั้งตอน 01:00
+});
+
 main();
