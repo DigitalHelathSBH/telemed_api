@@ -1,0 +1,24 @@
+services:
+  telemed-register:
+    build: .
+    env_file: .env
+    working_dir: /app
+    command: ["node", "src/jobs/register.job.js"]
+    volumes:
+      - ./logs:/app/logs
+
+  telemed-update:
+    build: .
+    env_file: .env
+    working_dir: /app
+    command: ["node", "src/jobs/update.job.js"]
+    volumes:
+      - ./logs:/app/logs
+
+  telemed-conference:
+    build: .
+    env_file: .env
+    working_dir: /app
+    command: ["node", "src/jobs/conferenceList.job.js"]
+    volumes:
+      - ./logs:/app/logs
