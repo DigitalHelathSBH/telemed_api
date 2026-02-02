@@ -33,6 +33,7 @@ function mapToRegisterPayload(row) {
     hospital_code: "10661",
     hospital_name: "โรงพยาบาลสระบุรี",
     hospital_department_name: row.hospital_department_name,
+    appointment_type_name: "Telemedicine",
     hospital_room_name: "Telemedicine",
     time_start: row.time_start,
     time_end: row.time_end,
@@ -85,7 +86,7 @@ async function main() {
             ,dbo.GetSSBName(PYREXT.FIRSTTHAINAME) as doctor_firstname
             ,dbo.GetSSBName(PYREXT.LASTTHAINAME) as doctor_lastname
             ,dbo.GetTitle(HNAPPMNT.HN) as account_title
-            ,dbo.GetSSBName(PATIENT_NAME.FIRSTNAME) as first_name
+            ,replace(replace(dbo.GetSSBName(PATIENT_NAME.FIRSTNAME),'นาย',''),'น.ส.','') as first_name
             ,dbo.GetSSBName(PATIENT_NAME.LASTNAME) as last_name
             ,replace(convert(varchar, PATIENT_INFO.BIRTHDATETIME, 111), '/', '-') as birth_date
             ,LEFT(replace(replace(PATIENT_ADDRESS.TEL, '-', ''), ' ', ''),'10') as phone_number
