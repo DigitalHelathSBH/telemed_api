@@ -94,11 +94,11 @@ async function main() {
             ,ClinicName as hospital_department_name
             ,CONVERT(varchar(5), APPOINTMENTDATETIME, 108) as time_start
             ,CONVERT(varchar(5), DATEADD(MINUTE, NOMINUTESALLOWANCELATE, CONVERT(time,APPOINTMENTDATETIME)),108) as time_end
-            ,dbo.Province(HNAPPMNT.HN) as province
-            ,dbo.Amphoe(HNAPPMNT.HN) as district
-            ,dbo.Tambon(HNAPPMNT.HN) as sub_district
-            ,PATIENT_ADDRESS.MOO as moo
-            ,PATIENT_ADDRESS.POSTALCODE as zip_code
+            ,NULL as province
+            ,NULL as district
+            ,NULL as sub_district
+            ,NULL as moo
+            ,NULL as zip_code
             ,HNAPPMNT.APPOINTMENTNO
         FROM HNAPPMNT
         JOIN ClinicName ON APPOINTMENTWITHCLINIC = CODE
@@ -112,6 +112,14 @@ async function main() {
         AND PROCEDURECODE = 'T' and transaction_id is null
         AND (HNAPPMNT.CONFIRMSTATUSTYPE != '6' or HNAPPMNT.CONFIRMSTATUSTYPE is null) 
     `;
+
+    /*
+            ,dbo.Province(HNAPPMNT.HN) as province
+            ,dbo.Amphoe(HNAPPMNT.HN) as district
+            ,dbo.Tambon(HNAPPMNT.HN) as sub_district
+            ,PATIENT_ADDRESS.MOO as moo
+            ,PATIENT_ADDRESS.POSTALCODE as zip_code
+    */
 
     const rs = await pool.request().query(query);
 
