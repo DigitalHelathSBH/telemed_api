@@ -94,11 +94,6 @@ async function main() {
             ,ClinicName as hospital_department_name
             ,CONVERT(varchar(5), APPOINTMENTDATETIME, 108) as time_start
             ,CONVERT(varchar(5), DATEADD(MINUTE, NOMINUTESALLOWANCELATE, CONVERT(time,APPOINTMENTDATETIME)),108) as time_end
-            ,NULL as province
-            ,NULL as district
-            ,NULL as sub_district
-            ,NULL as moo
-            ,NULL as zip_code
             ,HNAPPMNT.APPOINTMENTNO
         FROM HNAPPMNT
         JOIN ClinicName ON APPOINTMENTWITHCLINIC = CODE
@@ -108,7 +103,7 @@ async function main() {
         join PATIENT_INFO ON HNAPPMNT.HN = PATIENT_INFO.HN 
         join PATIENT_ADDRESS ON HNAPPMNT.HN = PATIENT_ADDRESS.HN and PATIENT_ADDRESS.SUFFIX = '1'
         LEFT JOIN SYSCONFIG ON CTRLCODE = '10121' and PYREXT.InitialNameCode = SYSCONFIG.CODE
-        WHERE CONVERT(date, HNAPPMNT.MAKEDATETIME)  = CONVERT(date,getdate())
+        WHERE CONVERT(date, HNAPPMNT.MAKEDATETIME)  = '2026-02-04'
         AND PROCEDURECODE = 'T' and transaction_id is null
         AND (HNAPPMNT.CONFIRMSTATUSTYPE != '6' or HNAPPMNT.CONFIRMSTATUSTYPE is null) 
     `;
